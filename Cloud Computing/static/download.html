@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+    <title>Download File </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://code.angularjs.org/1.2.0/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-file-upload/2.5.0/angular-file-upload.min.js"></script>
+    <script src="js/controllers.js"></script>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            background-color: rgb(226, 226, 226);
+        }
+
+        ::-webkit-scrollbar {
+            width: 0px;
+            /* Remove scrollbar space */
+            background: transparent;
+            /* Optional: just make scrollbar invisible */
+        }
+
+        /* Optional: show position indicator in red */
+        ::-webkit-scrollbar-thumb {
+            background: #FF0000;
+        }
+
+        .red-tooltip+.tooltip>.tooltip-inner {
+            background-color: #f00;
+        }
+
+        .red-tooltip+.tooltip>.tooltip-arrow {
+            border-bottom-color: #f00;
+        }
+    </style>
+
+</head>
+
+<body ng-controller="DownloadController">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            <img src="assets/logo2.png" width="40" height="30" class="d-inline-block align-top" alt="">
+            <span style="padding:6px;">OwnCloud</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="/">Home</a>
+                <a class="nav-item nav-link active" href="/download">Download</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="jumbotron text-center row" style="margin: 0 auto; padding:12px">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <input ng-model="searchFile" placeholder="Search" class="form-control" type="text">
+        </div>
+    </div>
+    <div class="" style="margin: 0px; ">
+        <div class="row" style="width:100%; margin:0px;padding:0px; ">
+
+            <table class=" col-12 table table-bordered table-dark">
+                <thead>
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            File Name
+                        </th>
+                        <th class="text-center">
+                            Size
+                        </th>
+                        <th class="text-center">
+                            Download
+                        </th>
+                        <th class="text-center">
+                            Delete
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr ng-repeat="file in files|filter:searchFile">
+                        <td>
+                            <span>{{$index+1}}</span>
+                        </td>
+                        <td data-placement="bottom" title="{{file.date.day}}" data-content="{{file.date.time}}"
+                            onmouseenter="$(this).popover('show')" onmouseleave="$(this).popover('hide')">
+                            <span>{{file.name}}</span>
+                        </td>
+                        <td class="text-center">
+                            <span>{{file.size}}</span>
+                        </td>
+                        <td class="text-center">
+                            <a href="downloadFile/{{file.name}}" style="height:30px"
+                                class="btn btn-primary fa fa-download">
+
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a ng-click="deleteItem(file.name,$index)" style="height:30px"
+                                class="btn btn-danger fa fa-trash">
+
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
